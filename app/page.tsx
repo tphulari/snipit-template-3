@@ -747,7 +747,6 @@ export default function Landing() {
           style={{
             height: "clamp(160px, 24vw, 320px)",
             width: "auto",
-            marginTop: "40px",
           }}
         />
 
