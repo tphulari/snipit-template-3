@@ -745,9 +745,9 @@ export default function Landing() {
           src="/logosnipit.png"
           alt={BRAND_NAME}
           style={{
-            height: "clamp(120px, 18vw, 240px)",
-            marginTop: "40px",
+            height: "clamp(160px, 24vw, 320px)",
             width: "auto",
+            marginTop: "40px",
           }}
         />
 
@@ -790,7 +790,7 @@ export default function Landing() {
               letterSpacing: "-0.01em",
             }}
           >
-            you are on the waitlist!
+            you are on the wait list!
           </div>
         ) : (
           <form
