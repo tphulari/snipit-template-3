@@ -794,7 +794,7 @@ export default function Landing() {
               letterSpacing: "-0.01em",
             }}
           >
-            hey, you&apos;re on the wait list.
+            you are on the wait list!
           </div>
         ) : (
           <form
