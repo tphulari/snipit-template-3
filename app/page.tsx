@@ -735,7 +735,7 @@ export default function Landing() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 8,
+          gap: 0,
           maxWidth: 560,
           width: "var(--center-w)",
           boxSizing: "border-box",
