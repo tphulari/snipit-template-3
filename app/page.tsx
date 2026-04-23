@@ -743,12 +743,12 @@ export default function Landing() {
       >
         <div
           style={{
-            fontFamily: "var(--serif)",
+            fontFamily: "var(--nimbus)",
             fontStyle: "normal",
-            fontWeight: 500,
+            fontWeight: 400,
             fontSize: "clamp(24px, 2.8vw, 36px)",
             lineHeight: 1,
-            letterSpacing: "-0.02em",
+            letterSpacing: "0.01em",
             color: "var(--ink)",
           }}
         >
