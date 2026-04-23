@@ -741,19 +741,14 @@ export default function Landing() {
           boxSizing: "border-box",
         }}
       >
-        <div
+        <img
+          src="/logosnipit.png"
+          alt={BRAND_NAME}
           style={{
-            fontFamily: "var(--nimbus)",
-            fontStyle: "normal",
-            fontWeight: 400,
-            fontSize: "clamp(24px, 2.8vw, 36px)",
-            lineHeight: 1,
-            letterSpacing: "0.01em",
-            color: "var(--ink)",
+            height: "clamp(28px, 3.2vw, 42px)",
+            width: "auto",
           }}
-        >
-          {BRAND_NAME}
-        </div>
+        />
 
         <h1
           style={{
