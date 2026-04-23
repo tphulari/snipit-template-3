@@ -735,17 +735,18 @@ export default function Landing() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 0,
+          gap: 8,
           maxWidth: 560,
           width: "var(--center-w)",
           boxSizing: "border-box",
+          marginTop: "-80px",
         }}
       >
         <img
           src="/logosnipit.png"
           alt={BRAND_NAME}
           style={{
-            height: "clamp(160px, 24vw, 320px)",
+            height: "clamp(56px, 6vw, 84px)",
             width: "auto",
           }}
         />
