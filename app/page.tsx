@@ -745,7 +745,8 @@ export default function Landing() {
           src="/logosnipit.png"
           alt={BRAND_NAME}
           style={{
-            height: "clamp(80px, 12vw, 160px)",
+            height: "clamp(120px, 18vw, 240px)",
+            marginTop: "40px",
             width: "auto",
           }}
         />
