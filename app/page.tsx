@@ -843,7 +843,7 @@ export default function Landing() {
                 opacity: submitting ? 0.75 : 1,
               }}
             >
-              {submitting ? "sending…" : "join →"}
+              {submitting ? "sending…" : "join the waitlist →"}
             </button>
           </form>
         )}
