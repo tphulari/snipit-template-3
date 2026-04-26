@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type CSSProperties, type FormEvent } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 /* ═══════════════════════════════════════════════════════════════════════════
    ✏️  CUSTOMIZE ME — the most common things you'll want to change:
