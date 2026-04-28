@@ -20,7 +20,7 @@ const FOOTER_TAGLINE = "SNAP IT * SHARE IT * SNIPIT";
 
 // Paste your Google Apps Script web app URL here. See README for setup.
 const WAITLIST_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbzy_glxZA31xzVN8FCv4cnp33xLEgGIajHy0YagfX2rG7pTAcI11iGN_Rxy86EZHXUQ/exec";
+  "https://script.google.com/macros/s/AKfycbx-OJLTMOXjK-imiQQ0YtZygWzFemMemQfjJaG6tVCzkpmZKCtphtX4zwpX8lNId5E/exec";
 
 // Add your photos to /public/photos/ and list them here. Leave empty to show
 // plain gradient placeholders. You can have any number of photos — they cycle
