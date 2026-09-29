@@ -1438,9 +1438,9 @@ export default function Landing() {
                 flexWrap: "wrap",
               }}
             >
-              <SketchPhoto src="/photos/front_sketch.png" tilt={-4} size="clamp(67px, 8vw, 106px)" />
-              <SketchPhoto src="/photos/screen_sketch.png" tilt={3} size="clamp(67px, 8vw, 106px)" />
-              <SketchPhoto src="/photos/USB-C_sketch.png" tilt={-2} size="clamp(67px, 8vw, 106px)" />
+              <SketchPhoto src="/photos/front_sketch.PNG" tilt={-4} size="clamp(67px, 8vw, 106px)" />
+              <SketchPhoto src="/photos/screen_sketch.PNG" tilt={3} size="clamp(67px, 8vw, 106px)" />
+              <SketchPhoto src="/photos/USB-C_sketch.PNG" tilt={-2} size="clamp(67px, 8vw, 106px)" />
             </div>
           </div>
 
