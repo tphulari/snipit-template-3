@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600;1,9..144,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600;1,9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap');
 
 /* Tan Nimbus — place TAN-NIMBUS.woff2 (and .woff) in /public/fonts/ */
 @font-face {
@@ -51,46 +51,373 @@
   --col-w: clamp(88px, 10vmin, 150px);
   --cluster-gap: calc(var(--col-w) * 0.42);
 
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
+  position: relative;
+  overflow-x: clip;
   color: var(--ink);
   font-family: var(--sans);
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Fixed backdrop: gradient + paper grain. Stays put while content scrolls. */
+.landing-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  isolation: isolate;
+  pointer-events: none;
   background:
     radial-gradient(ellipse 70% 50% at 30% 20%, rgba(255, 255, 255, 0.7), transparent 70%),
     radial-gradient(ellipse 100% 80% at 80% 100%, rgba(0, 0, 0, 0.04), transparent 65%),
     linear-gradient(180deg, #F7F6F2 0%, #F2F1EC 60%, #EDEBE5 100%);
-  z-index: 100;
 }
 
-.landing-stage::before {
+.landing-bg::before {
   content: "";
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  z-index: 1;
   background-image: url('/grain.png');
   background-size: 360px 360px;
   mix-blend-mode: multiply;
   opacity: 0.22;
 }
 
-.landing-stage::after {
-  content: "";
+/* Hero: one screen tall. Photo clusters are absolutely positioned inside it,
+   so they scroll up with the page. */
+.landing-hero {
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+/* Photo wall. ONE fixed, viewport-sized window (.landing-gallery) holds ONE tall
+   track (.landing-track) made of three walls stacked edge to edge, so there is
+   never a gap between them. page.tsx slides the track up as you scroll (faster
+   than the page), and picks the speed so the track's last pixel lands exactly
+   at the bottom of the screen when you reach the end of the page. */
+.landing-gallery {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.landing-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  will-change: transform;
+}
+
+.landing-wall {
+  position: relative;
+  width: 100%;
+}
+.landing-wall--hero { height: 100vh; height: 100svh; }
+.landing-wall--bridge { height: 70vh; }
+.landing-wall--about { height: 100vh; }
+.landing-wall--team { height: 110vh; }
+.landing-wall--extra { height: 100vh; }
+
+.landing-scroll-hint {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: var(--cream);
+  box-shadow: var(--sh-sticker);
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.landing-scroll-hint:hover {
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: var(--sh-lift);
+}
+
+.landing-scroll-hint-arrow {
+  display: inline-block;
+  font-size: 18px;
+  animation: landing-bounce 1.6s ease-in-out infinite;
+}
+
+@keyframes landing-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* About section — a wide torn-paper panel, inspired by the brand's
+   Instagram "what even is the snipit camera?" carousel. */
+.landing-about {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 28px 24px 80px;
+  box-sizing: border-box;
+}
+
+.landing-about-card {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+  padding: 66px clamp(22px, 5.8vw, 56px) 56px;
+  background: var(--butter-soft);
+  background-image: url('/grain.png');
+  background-size: 48px 48px;
+  background-blend-mode: multiply;
+  border-radius: 22px;
+  box-shadow: 0 10px 26px -12px rgba(40, 28, 16, 0.16), 0 2px 5px rgba(40, 28, 16, 0.06);
+  transform: rotate(-0.6deg);
+}
+
+.landing-about-card > * {
+  /* keep inner content upright even though the card itself has a playful tilt */
+  transform: rotate(0.6deg);
+}
+
+.landing-about-doodle {
+  color: var(--ink);
+  opacity: 0.75;
+}
+
+/* Playful little eyebrow pill + fact chips for the About section */
+.landing-about-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: var(--blush);
+  border-radius: 999px;
+  box-shadow: var(--sh-sticker);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transform: rotate(-2deg);
+}
+
+.landing-about-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.landing-about-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--cream);
+  box-shadow: var(--sh-sticker);
+  transition: transform 0.15s;
+}
+
+.landing-about-fact:hover {
+  transform: translateY(-2px) rotate(-1deg);
+}
+
+.landing-about-wordmark {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-style: normal;
+  text-transform: lowercase;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* Our story / team — compact card between About and Socials */
+.landing-team {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  padding: 32px 24px 100px;
+  box-sizing: border-box;
+}
+
+.landing-team-card {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  box-sizing: border-box;
+  padding: 30px clamp(20px, 5vw, 44px) 24px;
+  text-align: center;
+  --av: clamp(88px, 25vw, 140px);
+  background: var(--sky-soft);
+  background-image: url('/grain.png');
+  background-size: 48px 48px;
+  background-blend-mode: multiply;
+  border-radius: 22px;
+  box-shadow: 0 10px 26px -12px rgba(40, 28, 16, 0.16), 0 2px 5px rgba(40, 28, 16, 0.06);
+  transform: rotate(0.5deg);
+}
+
+.landing-team-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 20px;
+  margin-top: 16px;
+  /* narrow the row so 6 people wrap into an even 3 + 3 */
+  padding-left: max(0px, calc((100% - (3 * (var(--av) + 24px) + 40px)) / 2));
+  padding-right: max(0px, calc((100% - (3 * (var(--av) + 24px) + 40px)) / 2));
+}
+
+.landing-team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: calc(var(--av) + 24px);
+  text-align: center;
+}
+
+.landing-team-avatar {
+  position: relative;
+  display: block;
+  width: var(--av);
+  height: var(--av);
+  padding: 0;
+  margin: 0 0 8px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  perspective: 800px;
+  box-shadow: var(--sh-sticker);
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: calc(var(--av) * 0.42);
+  color: var(--ink);
+  transition: transform 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.landing-team-avatar:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Click-to-flip: the badge turns over to show hometown + majors. */
+.landing-team-flip {
   position: absolute;
   inset: 0;
-  pointer-events: none;
-  z-index: 50;
-  background-image: url('/grain.png');
-  background-size: 120px 120px;
-  mix-blend-mode: overlay;
-  opacity: 0.12;
+  display: block;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.landing-team-flip.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.landing-team-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.landing-team-face--front {
+  display: grid;
+  place-items: center;
+}
+
+.landing-team-face--back {
+  transform: rotateY(180deg);
+  box-sizing: border-box;
+  padding: 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(9.5px, calc(var(--av) * 0.095), 13px);
+  line-height: 1.25;
+}
+
+.landing-team-back-label {
+  font-family: var(--mono);
+  font-size: clamp(7px, calc(var(--av) * 0.055), 9px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+
+.landing-team-back-label:first-child {
+  margin-top: 0;
+}
+
+.landing-team-back-value {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-team-flip {
+    transition: none;
+  }
+}
+
+.landing-team-member:hover .landing-team-avatar {
+  transform: translateY(-2px) rotate(0deg) !important;
+}
+
+.landing-team-name {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.landing-team-role {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
 }
 
 .landing-stage ::selection {
@@ -143,17 +470,6 @@
   .landing-cluster {
     display: none;
   }
-}
-
-@keyframes landing-twinkle {
-  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-  50% { opacity: 0.55; transform: scale(0.85) rotate(4deg); }
-}
-
-.landing-sparkle {
-  display: inline-block;
-  animation: landing-twinkle 4.6s cubic-bezier(.2, .6, .2, 1) infinite;
-  transform-origin: center;
 }
 
 .landing-cta:hover {

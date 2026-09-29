@@ -4,9 +4,16 @@ import "./globals.css";
 import "./landing.css";
 
 export const metadata: Metadata = {
-  title: "snipit · making the most of your memories.",
+  title: "snipit",
   description:
     "a tiny thermal printer for your phone. pastel prints, golden-hour vibes.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/photos/favicon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/photos/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
