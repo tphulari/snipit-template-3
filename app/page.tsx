@@ -33,7 +33,7 @@ const ABOUT_PARAGRAPHS: string[] = [
   "Snipit is the digicam that brings you closer to the people who make your memories worth keeping. Designed by young women for young women, it has everything you love about a classic digicam, minus the fuss.",
 ];
 const ABOUT_BULLETS: string[] = [
-  "Simple settings and quality flash, so you can focus on looking good",
+  "Simple settings and quality flash, so you can focus on looking good and having fun!",
   "Snipit prints unlimited affordable copies of every picture: give them out to everyone!",
   "USB-C transfer makes it easy to download digitally and post on insta",
   "Print a pic on a receipt from your favorite bar or store to create a sentimental keepsake",
